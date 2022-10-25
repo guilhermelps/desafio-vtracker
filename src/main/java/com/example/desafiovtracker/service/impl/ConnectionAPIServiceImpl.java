@@ -15,8 +15,18 @@ public class ConnectionAPIServiceImpl implements ConnectionAPIService {
 
     @Override
     public void connectAPI(String searchUrl) throws Exception {
+        connectAPI(searchUrl, null);
+    }
+
+    @Override
+    public void connectAPI(String searchUrl, String token) throws Exception {
         URL url = new URL(searchUrl);
         URLConnection connection = url.openConnection();
+
+        if (token != null) {
+            connection.setRequestProperty("Authorization", "Bearer " + token);
+        }
+
         InputStream inputStream = connection.getInputStream();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
 

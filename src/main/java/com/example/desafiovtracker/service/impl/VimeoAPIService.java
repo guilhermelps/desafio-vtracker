@@ -7,7 +7,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 @Service
-public class NewsAPIServiceImpl implements APIService {
+public class VimeoAPIService implements APIService {
 
     @Autowired
     private Environment env;
@@ -17,8 +17,8 @@ public class NewsAPIServiceImpl implements APIService {
 
     @Override
     public void searchResults(String subject) throws Exception {
-        String url = env.getProperty("news_api.url") + "/v2/everything?q=" + subject + "&apiKey=" + env.getProperty("news_api.key");
+        String url = env.getProperty("vimeo_api.url") + "/channels?filter=" + subject;
 
-        connectionAPIService.connectAPI(url);
+        connectionAPIService.connectAPI(url, env.getProperty("vimeo_api.token"));
     }
 }
